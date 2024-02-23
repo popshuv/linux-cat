@@ -8,25 +8,29 @@ int main(int argc, char **argv) {
     FILE *file;
     char buffer[BUFFER_SIZE];
 
+    // If no arguments are passed, read from stdin
     if (argc == 0) {
-        // Read from standard input and write to standard output
+        
         while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
             // Output the text entered by the user
             printf("%s", buffer);
         }
     }
 
-    if (argc == 1) {
-
-        file = fopen(argv[1], "r");
-
-        if (file == NULL) {
-            printf("cat: %s No such file or directory\n", argv[1]);
+    // If a file is passed as an argument, read from the file
+    if (argc >= 1) {
+        // Loop through the arguments
+        for (int i = 1; i < argc; i++) {
+            file = fopen(argv[i], "r");
+            // If the file does not exist, print an error message
+            if (file == NULL) {
+                printf("cat: %s No such file or directory\n", argv[1]);
+            }
+            // If the file exists, read the file and print the contents
+            do {
+                fgets(buffer, sizeof(buffer), file);
+                printf("%s", buffer);
+            } while (!feof(file));
         }
-
-        do {
-            fgets(buffer, sizeof(buffer), file);
-            printf("%s", buffer);
-        } while (!feof(file));
     }
 }
