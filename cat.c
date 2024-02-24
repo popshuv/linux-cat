@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     char buffer[BUFFER_SIZE];
 
     // If no arguments are passed, read from stdin
-    if (argc == 0) {
+    if (argc == 1) {
         
         while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
             // Output the text entered by the user
@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
     }
 
     // If a file is passed as an argument, read from the file
-    if (argc >= 1) {
+    if (argc >= 2) {
         // Loop through the arguments
         for (int i = 1; i < argc; i++) {
             file = fopen(argv[i], "r");
